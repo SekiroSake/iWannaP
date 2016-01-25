@@ -10,4 +10,5 @@ Clone this branch to your localhost and run index.html
 ## API used
 * Google Maps JavaScript API
 * Google Street View Image API
+* Foursquare API
 
