@@ -13,3 +13,9 @@ Clone this branch to your localhost and run index.html
 * Google Street View Image API
 * Foursquare API
 
+### Latest version
+* Fiexed css for mobile screen
+* Added a third part API - Foursquare API
+* New art design
+* Cleaned code
+
