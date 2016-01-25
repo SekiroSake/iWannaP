@@ -190,6 +190,10 @@ main{
     cursor: pointer;
     font-size: 14px;
 }
+.place-item-icon{
+	position: absolute;
+	right: 10px;
+}
 
 /* place detailed info */
 
@@ -308,11 +312,15 @@ main{
 	.place-details-container {
 		width: 70%;
 	}
+	
+	#hero {
+		height: 100%;
+	}
 }
 
 @media(max-height: 736px) {
-	#hero {
-		height: 100%;
+	.place-item-icon{
+		display:none;
 	}
 }
 
@@ -349,7 +357,7 @@ main{
 
 	#place-list {
 	    height: auto;
-	    max-height: 280px;
+	    max-height: 180px;
 	    border-bottom: 1px solid grey;
 	}
 
@@ -362,6 +370,8 @@ main{
 	main {
 	    height: auto;
 	}
+
+
 }
 
 @media(max-width: 399px) {
