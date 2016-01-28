@@ -18,4 +18,5 @@ Clone this branch to your localhost and run index.html
 * Added a third part API - Foursquare API
 * New art design
 * Cleaned code
+* Marker animated
 
