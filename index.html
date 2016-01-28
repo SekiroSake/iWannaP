@@ -40,47 +40,7 @@
 		<div id="map">
 		</div>
 	</main>
-	<section id="info-container" class="info">
-
-		<div data-bind="visible: connectionError">
-			<h1 class="error">There was a problem with your connection. Some information may not be available.</h1>
-		</div>
-
-		<div class="current-place" data-bind="with: currentPlace()">
-			<div class="place-details-container">
-				<h1 align="center">Place Nearby Recommendation</h1>
-
-				<div class="place-details">
-					<h2 align="center" data-bind="text: name"></h2>
-					<p align="center" class="address" data-bind="text: address"></p>
-				
-					<p align="center" class="contact">
-						<span data-bind="text: phone"></span><br/>
-					</p>
-				</div>
-				
-				
-				<div class="place-details">
-					<h2 align="center" data-bind="text: name1"></h2>
-					<p align="center" class="address" data-bind="text: address1"></p>
-				
-					<p align="center" class="contact">
-						<span data-bind="text: phone1"></span><br/>
-					</p>
-				</div>
-
-				<div class="place-details">
-					<h2 align="center" data-bind="text: name2"></h2>
-					<p align="center" class="address" data-bind="text: address2"></p>
-				
-					<p align="center" class="contact">
-						<span data-bind="text: phone2"></span><br/>
-					</p>
-				</div>
-				
-			</div>		
-		</div>
-	</section>
+	
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBexCRG32sL2vBuJWpbCgHNkahtEPm3lTA"></script>
 	<script src="lib/knockout-3.2.0.min.js"></script>

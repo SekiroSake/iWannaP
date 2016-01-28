@@ -116,7 +116,16 @@
 			zoom: 12
 		},
 		//this variable might be super long, but also super important
-		infoWindowContent: '<div class="info-window"><div class="window-title">%title%</div><div class="window-description">%description%</div><div class="window-open">%open%</div><div class="window-open"><h5>Outside look:</h5></br><img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=%lat1%,%lng1%&heading=151.78&pitch=-0.76&key=AIzaSyBexCRG32sL2vBuJWpbCgHNkahtEPm3lTA" alt="view image" style="width:304px;height:228px;"></div></div>',
+		infoWindowContent:  '<div class="info-window">'+
+						    '<div class="window-title">%title%</div>'+
+						    '<div class="window-description">%description%</div>'+
+							'<div class="window-open">%open%</div><div class="window-open">'+
+							'<h5>Outside look:</h5>'+
+							'</br><img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&'+
+							'location=%lat1%,%lng1%&heading=151.78'+
+							'&pitch=-0.76&key=AIzaSyBexCRG32sL2vBuJWpbCgHNkahtEPm3lTA"'+
+							' alt="view image" style="width:304px;height:228px;"></br>'+
+							'</br><h5>Nearby place recommendation:</h5>'+'</br>%apiinfo%</div></div>',
 		init: function(vm) {
 			gMap.map = new google.maps.Map(document.getElementById('map'), gMap.options);
 			// shows markers depending on which loads faster - vm or google map
@@ -154,24 +163,24 @@
 				parent.toggleBounce(place);
 				parent.showPlace(place);
 				parent.changeMarker(place);
-				
+				parent.getAPIinfo(place);
 			};
 		}) (this, parent));
 		this.marker = marker;
 
-		
+
 	};
 
 
 
-	//for marker animation
+	/*for marker animation
 	function toggleBounce() {
   		if (marker.getAnimation() !== null) {
     		marker.setAnimation(null);
   		} else {
     			marker.setAnimation(google.maps.Animation.BOUNCE);
   			}
-	}
+	}*/
 
 	//set fil
 	var Filter = function(data) {
@@ -197,7 +206,7 @@
 				self.placeList.push(new Place(place, self));
 
 				place.tags.forEach(function(tag){
-			
+
 					if (tempTagArr.indexOf(tag) < 0) {
 						tempTagArr.push(tag);
 					}
@@ -305,32 +314,83 @@
 	  map.setStreetView(panorama);
 	}*/
 		//set up viewd marker
-	
+
 		self.changeMarker = function(place){
 			place.marker.setIcon('img/marker_selected.png');
 		};
-			self.toggleBounce = function(place) {
-  if (place.marker.getAnimation() !== null) {
-    place.marker.setAnimation(null);
-  } else {
-    place.marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
-}
-	
+		self.toggleBounce = function(place) {
+  			if (place.marker.getAnimation() !== null) {
+    			place.marker.setAnimation(null);
+  				} else {
+    					place.marker.setAnimation(google.maps.Animation.BOUNCE);
+  					   }
+		}
+		self.the4Sstring = '';
+
+		/*
+		get required info from 4 square api
+		*/
+		this.getAPIinfo = function (place){
+			var url = 'https://api.foursquare.com/v2/venues/search?ll=' +
+			place.lat() + ',' + place.lng() +
+			'&intent=checkin&radius=1&&client_id=' +
+			'X4VJ1VD5FWQOBAXS3TW4BB5FJCFWHKOIWKKORHKFK2E0GZ2O&'+
+			'client_secret=LJCJ1WQLLVGKWICTYZWASUWLNUQM1ZJJRS13QXP4BQTO1VNT&v=20131118';
+
+			/*
+			return the request for infowindow
+			*/
+
+			$.getJSON(url)
+				.done(function (data) {
+						self.the4Sstring = '';
+						var venue = data.response.venues[1];
+					//set fetched info as properties of Place object
+						//place.id = ko.observable(venue.id);
+						if (venue.hasOwnProperty('name')) {
+							//place.name = ko.observable(venue.name);
+							self.the4Sstring = self.the4Sstring + 'Name: ' +
+                        venue.name;
+						}else {
+							self.the4Sstring = self.the4Sstring + '</br>Name not found';
+						}
+						if (venue.hasOwnProperty('location')&& venue.location.hasOwnProperty('address')) {
+							//place.address = ko.observable(venue.location.address);
+							self.the4Sstring = self.the4Sstring + '</br>Address: ' +
+                        venue.location.address;
+						}else {
+							self.the4Sstring = self.the4Sstring + '</br>Location not found';
+						}
+						if (venue.hasOwnProperty('contact') && venue.contact.hasOwnProperty('formattedPhone')) {
+							//self.the4Sstring = ko.observable(venue.contact.formattedPhone);
+							self.the4Sstring = self.the4Sstring + '</br>Phone: ' +
+                        venue.contact.formattedPhone;
+						}else {
+							self.the4Sstring = self.the4Sstring +  '</br>Phone not found';
+						}
+
+				})
+				.fail(function(){
+					 self.connectionError(true);
+					 self.the4Sstring = 'Fouresquare info did not loaded';
+				});
+			};
+
 		var streetimage = "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyBexCRG32sL2vBuJWpbCgHNkahtEPm3lTA";
 		self.showPlace = function(place) {
 			// set info window content and show it
-			gMap.infoWindow.setContent(gMap.infoWindowContent.replace('%title%', place.name()).replace('%description%', place.address()).replace('%open%', 'Open: ' + place.hours()).replace('%lat1%', place.lat()).replace('%lng1%', place.lng()));
-			
+			gMap.infoWindow.setContent(gMap.infoWindowContent.replace('%apiinfo%',self.the4Sstring).replace('%title%', place.name()).replace('%description%', place.address()).replace('%open%', 'Open: ' + place.hours()).replace('%lat1%', place.lat()).replace('%lng1%', place.lng()));
+
 			gMap.infoWindow.open(gMap.map, place.marker);
-			
+
+
 			if (self.currentPlace()) self.currentPlace().marker.setIcon('img/marker.png');
 			//streetview();
-			 
+
 			// reset error status
 			self.connectionError(false);
 
-			//ajax
+			/*ajax
 			if (!place.initialized()) {
 				// set current place and scroll user to information
 				// call to get initial information
@@ -338,45 +398,31 @@
 						url: 'https://api.foursquare.com/v2/venues/search?ll=' + place.lat() + ',' + place.lng() + '&intent=checkin&radius=1&&client_id=X4VJ1VD5FWQOBAXS3TW4BB5FJCFWHKOIWKKORHKFK2E0GZ2O&client_secret=LJCJ1WQLLVGKWICTYZWASUWLNUQM1ZJJRS13QXP4BQTO1VNT&v=20131118'
 					})
 					.done(function (data) {
-						
-						var venue = data.response.venues[0];
+
+						var venue = data.response.venues[1];
 					//set fetched info as properties of Place object
 						//place.id = ko.observable(venue.id);
 						if (venue.hasOwnProperty('name')) {
 							place.name = ko.observable(venue.name);
+						}else {
+							place.name = 'Name not found';
 						}
 						if (venue.hasOwnProperty('location')&& venue.location.hasOwnProperty('address')) {
 							place.address = ko.observable(venue.location.address);
-						}				
+						}else {
+							place.address = 'Location not found';
+						}
 						if (venue.hasOwnProperty('contact') && venue.contact.hasOwnProperty('formattedPhone')) {
 							place.phone = ko.observable(venue.contact.formattedPhone);
-						}
-						
-						var venue1 = data.response.venues[1];
-						if (venue1.hasOwnProperty('name')) {
-							place.name1 = ko.observable(venue1.name);
-						}
-						if (venue1.hasOwnProperty('location')&& venue1.location.hasOwnProperty('formattedAddress')) {
-							place.address1 = ko.observable(venue1.location.formattedAddress);
-						}
-						if (venue1.hasOwnProperty('contact') && venue1.contact.hasOwnProperty('formattedPhone')) {
-							place.phone1 = ko.observable(venue1.contact.formattedPhone);
+						}else {
+							place.phone = 'Phone not found';
 						}
 
-						var venue2 = data.response.venues[2];
-						if (venue2.hasOwnProperty('name')) {
-							place.name2 = ko.observable(venue2.name);
-						}
-						if (venue2.hasOwnProperty('location')&& venue2.location.hasOwnProperty('formattedAddress')) {
-							place.address2 = ko.observable(venue2.location.formattedAddress);
-						}
-						if (venue2.hasOwnProperty('contact') && venue2.contact.hasOwnProperty('formattedPhone')) {
-							place.phone2 = ko.observable(venue2.contact.formattedPhone);
-						}
-						
+
+
 
 						self.currentPlace(place);
-						self.scrollTo('#info-container');			
+						self.scrollTo('#info-container');
 
                         })
                         .fail(function(err) {
@@ -391,6 +437,7 @@
 						self.currentPlace(place);
 						self.scrollTo('#info-container');
 					}
+					*/
 
 				};
                          // helper function to scroll user to specified element
