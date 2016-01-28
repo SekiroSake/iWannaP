@@ -1,6 +1,9 @@
 # Project 5: Neighborhood Map : iWannaP
 For Udacity Front-End Developer Nanodegree
 
+## Sample
+http://pg707284828.github.io/iWannaP/
+
 ## About
 * This app helps you to find local restrooms in San Francisco area.
 * Up to three most visited nearby places around the restroom.
@@ -20,5 +23,6 @@ Clone this branch to your localhost and run index.html
 * Cleaned code
 * Marker animated
 * Deleted drop down recommendation box and merged it into googlemap info box.
+* Fixed login animation
 
 
