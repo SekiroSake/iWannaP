@@ -15,8 +15,8 @@ Clone this branch to your localhost and run index.html
 
 ### Latest version
 * Fiexed css for mobile screen
-* Added a third part API - Foursquare API
-* New art design
+* Added a third party API - Foursquare API
+* New login art design
 * Cleaned code
 * Marker animated
 * Deleted drop down recommendation box and merged it into googlemap info box.
