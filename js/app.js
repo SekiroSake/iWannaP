@@ -141,19 +141,37 @@
 		// google maps marker
 		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(data.lat, data.lng),
-			icon: 'img/marker.png'
+			icon: 'img/marker.png',
+			draggable: true,
+    		animation: google.maps.Animation.DROP,
 		});
+
 
 		// click handler for google maps marker
 		google.maps.event.addListener(marker, 'click', (function(place, parent) {
 			return function() {
 				// tell viewmodel to show this place
+				parent.toggleBounce(place);
 				parent.showPlace(place);
 				parent.changeMarker(place);
+				
 			};
 		}) (this, parent));
 		this.marker = marker;
+
+		
 	};
+
+
+
+	//for marker animation
+	function toggleBounce() {
+  		if (marker.getAnimation() !== null) {
+    		marker.setAnimation(null);
+  		} else {
+    			marker.setAnimation(google.maps.Animation.BOUNCE);
+  			}
+	}
 
 	//set fil
 	var Filter = function(data) {
@@ -291,6 +309,13 @@
 		self.changeMarker = function(place){
 			place.marker.setIcon('img/marker_selected.png');
 		};
+			self.toggleBounce = function(place) {
+  if (place.marker.getAnimation() !== null) {
+    place.marker.setAnimation(null);
+  } else {
+    place.marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
 	
 		var streetimage = "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyBexCRG32sL2vBuJWpbCgHNkahtEPm3lTA";
 		self.showPlace = function(place) {
