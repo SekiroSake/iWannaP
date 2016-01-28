@@ -19,4 +19,6 @@ Clone this branch to your localhost and run index.html
 * New art design
 * Cleaned code
 * Marker animated
+* Deleted drop down recommendation box and merged it into googlemap info box.
+
 
