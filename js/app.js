@@ -443,7 +443,8 @@
                          // helper function to scroll user to specified element
                     // el is a string representing the element selector
  			self.scrollTo = function(el) {
-				$('html, body').animate({ scrollTop: $(el).offset().top }, "slow");
+ 				
+				$('html, body').animate({ scrollTop: $("#control-bar").offset().top }, "slow");
 				};
                     // show marker for each place
             self.showMarkers = function() {
@@ -463,6 +464,7 @@
 	$( document ).ready(function() {
 		vm.init();
 		ko.applyBindings(vm);
+
 
 		// resize map and reset center when window size changes
 		$(window).on('resize', function() {
