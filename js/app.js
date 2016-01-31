@@ -161,7 +161,7 @@
 			return function() {
 				// tell viewmodel to show this place
 				parent.toggleBounce(place);
-				parent.showPlace(place);
+				//parent.showPlace(place);
 				parent.changeMarker(place);
 				parent.getAPIinfo(place);
 			};
@@ -368,6 +368,7 @@
 						}else {
 							self.the4Sstring = self.the4Sstring +  '</br>Phone not found';
 						}
+						self.showPlace(place);
 
 				})
 				.fail(function(){
