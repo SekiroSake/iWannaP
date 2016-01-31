@@ -323,6 +323,7 @@
     			place.marker.setAnimation(null);
   				} else {
     					place.marker.setAnimation(google.maps.Animation.BOUNCE);
+    					setTimeout(function(){ place.marker.setAnimation(null); }, 750);
   					   }
 		}
 		self.the4Sstring = '';
