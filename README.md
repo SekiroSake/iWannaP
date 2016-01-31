@@ -2,7 +2,7 @@
 For Udacity Front-End Developer Nanodegree
 
 ## Test run
-go to wang-hang.com
+go to http://wang-hang.com/
 and click on iWannaP
 
 ## About
