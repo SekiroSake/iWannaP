@@ -1,4 +1,4 @@
-# Project 5: Neighborhood Map : iWannaP
+# iWannaP
 For Udacity Front-End Developer Nanodegree
 
 ## Test run
