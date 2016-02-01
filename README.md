@@ -18,7 +18,7 @@ Clone this branch to your localhost and run index.html
 * Foursquare API
 
 ### Update log
-* rewrote the whole javascript file for async style
+* Rewrote the whole javascript file for async style
 * Fiexed css for mobile screen
 * Added a third party API - Foursquare API
 * New login art design
