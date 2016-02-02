@@ -31,7 +31,7 @@
 	<main>
 		<div id="places">
 			<div data-bind="visible: connectionError">
-			<h1 class="error">Error! Connection Failed!</h1>
+			<h1 class="error">Notice:Refresh your webpage or check your internet</h1>
 			</div>
 			<ul data-bind="foreach: filteredPlaces" id="place-list">
 				<li class="place-item" data-bind="click:$parent.showPlace.bind($data)"><img class = "place-item-icon" src="img/open.png" alt="open"><h4 class="place-title" data-bind="text: $data.name"></h4><p class="place-info" data-bind="text: $data.info"></p></li>
