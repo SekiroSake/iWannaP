@@ -387,11 +387,8 @@
 				})
 				.fail(function(){
 					 //self.connectionError(true);
-					 //self.the4Sstring = 'Fouresquare info did not loaded';
-					 var alertDiv = document.createElement('div');
-            			alertDiv.text = 'Unable to call API - No Internet Available';
-            			alertDiv.className = 'alert alert-danger';
-           				document.getElementsByTagName('body')[0].appendChild(alertDiv);
+					 self.the4Sstring = 'Error: Fouresquare info did not loaded';
+					 self.showPlace(place);
 				});
 			};
 
