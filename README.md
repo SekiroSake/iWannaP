@@ -1,10 +1,6 @@
 # iWannaP
 For Udacity Front-End Developer Nanodegree
 
-## Test run
-go to http://wang-hang.com/
-and click on iWannaP
-
 ## About
 * This app helps you to find local restrooms in San Francisco area.
 * Up to three most visited nearby places around the restroom.
