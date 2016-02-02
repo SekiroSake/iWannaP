@@ -19,7 +19,6 @@ Clone this branch to your localhost and run index.html
 
 ### Update log
 * Rewrote the whole javascript file for googlemaps async style
-* Added foursquare api fail loading msg inside the infowindow of googlemap
 * Fiexed css for mobile screen
 * Added a third party API - Foursquare API
 * New login art design
