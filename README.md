@@ -7,7 +7,7 @@ and click on iWannaP
 
 ## About
 * This app helps you to find local restrooms in San Francisco area.
-* Give you most visited nearby places around the restroom.
+* Up to three most visited nearby places around the restroom.
 
 ## How To Run
 Clone this branch to your localhost and run index.html
@@ -18,7 +18,7 @@ Clone this branch to your localhost and run index.html
 * Foursquare API
 
 ### Update log
-* Rewrote the whole javascript file for async style
+* Rewrote the whole javascript file for googlemaps async style
 * Fiexed css for mobile screen
 * Added a third party API - Foursquare API
 * New login art design
@@ -28,3 +28,10 @@ Clone this branch to your localhost and run index.html
 * Fixed login animation
 
 
+### How to make Google maps async style STEP BY STEP
+* Add "async defer" and "allback=initMap" in html
+* Merge viewModel into initMap function
+* Call viewModel.init() & ko.applyBindings inside initMap 
+* Redefine some key variables
+* Delete document ().ready functions
+* Some minor changes base on cases

@@ -1,8 +1,4 @@
 
-	var infowindow = null;
-	var infoWindowContent ;
-	var filteredPlaces;
-	var marker;
 
 	//Set Variables in JSON
 	var places = [
@@ -112,27 +108,15 @@
 	Set the starting focus point on google map
 	Ping on the Centre of San Francisco
 	*/
-
 	var gMap = {
 		map: {},
-		//infoWindow: new google.maps.InfoWindow(), // reusable info window
+		infoWindow: new google.maps.InfoWindow(), // reusable info window
 		options: {
 			center: { lat: 37.759819, lng: -122.426036},
 			zoom: 12
 		},
 		//this variable might be super long, but also super important
-
-		/*init: function(vm) {
-			gMap.map = new google.maps.Map(document.getElementById('map'), gMap.options);
-			// shows markers depending on which loads faster - vm or google map
-			if (vm.initialized && !vm.hasMarkers) vm.showMarkers();
-		}*/
-	};
-
-	function initMap() {
-		gMap.map = new google.maps.Map(document.getElementById('map'), gMap.options);
-		infoWindow =  new google.maps.InfoWindow();
-		infoWindowContent =  '<div class="info-window">'+
+		infoWindowContent:  '<div class="info-window">'+
 						    '<div class="window-title">%title%</div>'+
 						    '<div class="window-description">%description%</div>'+
 							'<div class="window-open">%open%</div><div class="window-open">'+
@@ -141,11 +125,12 @@
 							'location=%lat1%,%lng1%&heading=151.78'+
 							'&pitch=-0.76&key=AIzaSyBexCRG32sL2vBuJWpbCgHNkahtEPm3lTA"'+
 							' alt="view image" style="width:304px;height:228px;"></br>'+
-							'</br><h5>Nearby place recommendation:</h5>'+'</br>%apiinfo%</div></div>';
-		var vm = new ViewModel();
-		vm.init();
-		if (vm.initialized && !vm.hasMarkers) vm.showMarkers();
-		ko.applyBindings(vm);
+							'</br><h5>Nearby place recommendation:</h5>'+'</br>%apiinfo%</div></div>',
+		init: function(vm) {
+			gMap.map = new google.maps.Map(document.getElementById('map'), gMap.options);
+			// shows markers depending on which loads faster - vm or google map
+			if (vm.initialized && !vm.hasMarkers) vm.showMarkers();
+		}
 	};
 
 	// Set place
@@ -163,7 +148,7 @@
 		this.initialized = ko.observable(false);
 
 		// google maps marker
-		 marker = new google.maps.Marker({
+		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(data.lat, data.lng),
 			icon: 'img/marker.png',
 			draggable: true,
@@ -182,6 +167,8 @@
 			};
 		}) (this, parent));
 		this.marker = marker;
+
+
 	};
 
 
@@ -398,9 +385,9 @@
 		var streetimage = "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyBexCRG32sL2vBuJWpbCgHNkahtEPm3lTA";
 		self.showPlace = function(place) {
 			// set info window content and show it
-			infoWindow.setContent(infoWindowContent.replace('%apiinfo%',self.the4Sstring).replace('%title%', place.name()).replace('%description%', place.address()).replace('%open%', 'Open: ' + place.hours()).replace('%lat1%', place.lat()).replace('%lng1%', place.lng()));
+			gMap.infoWindow.setContent(gMap.infoWindowContent.replace('%apiinfo%',self.the4Sstring).replace('%title%', place.name()).replace('%description%', place.address()).replace('%open%', 'Open: ' + place.hours()).replace('%lat1%', place.lat()).replace('%lng1%', place.lng()));
 
-			infoWindow.open(gMap.map, place.marker);
+			gMap.infoWindow.open(gMap.map, place.marker);
 
 
 			if (self.currentPlace()) self.currentPlace().marker.setIcon('img/marker.png');
@@ -462,12 +449,12 @@
                          // helper function to scroll user to specified element
                     // el is a string representing the element selector
  			self.scrollTo = function(el) {
-
+ 				
 				$('html, body').animate({ scrollTop: $("#control-bar").offset().top }, "slow");
 				};
                     // show marker for each place
-      self.showMarkers = function() {
-				ko.utils.arrayForEach(self.placeList(), function(place){
+            self.showMarkers = function() {
+			ko.utils.arrayForEach(self.placeList(), function(place){
 				place.marker.setMap(gMap.map);
 			});
 
@@ -477,9 +464,9 @@
 
 
 	// empty view model
-	//var vm = new ViewModel();
+	var vm = new ViewModel();
 
-	/* listener for view model initialization
+	// listener for view model initialization
 	$( document ).ready(function() {
 		vm.init();
 		ko.applyBindings(vm);
@@ -493,4 +480,3 @@
 	});
 	// listener for google map initialization
 	google.maps.event.addDomListener(window, 'load', gMap.init(vm));
-	*/
