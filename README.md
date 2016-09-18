@@ -3,7 +3,7 @@ For Udacity Front-End Developer Nanodegree
 
 ## Try it now
 - http://hang-wang.github.io/iWannaP/
-(- git checkout --orphan gh-pages)
+- (git checkout --orphan gh-pages)
 
 
 ## About
