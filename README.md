@@ -2,7 +2,9 @@
 For Udacity Front-End Developer Nanodegree
 
 ## Try it now
-See my website http://wang-hang.com/ and then click on iWannaP
+- http://hang-wang.github.io/iWannaP/
+(- git checkout --orphan gh-pages)
+
 
 ## About
 * This app helps you to find local restrooms in San Francisco area.
