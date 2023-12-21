@@ -1,8 +1,7 @@
 # iWannaP
-For Udacity Front-End Developer Nanodegree
 
 ## Try it now
-- http://hang-wang.github.io/iWannaP/
+- http://SekiroSake.github.io/iWannaP/
 - (git checkout --orphan gh-pages)
 
 
